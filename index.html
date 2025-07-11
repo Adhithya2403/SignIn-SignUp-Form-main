@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignIn&SignUp</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+
+</head>
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+
+        <!-- Sign In Form -->
+        <form action="" class="sign-in-form">
+          <h2 class="title">Sign In</h2>
+          <div class="input-field">
+            <div class="icon-container">
+              <img src="img/email.png" alt="user" />
+            </div>
+            <input type="email" placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <div class="icon-container">
+              <img src="img/lock_9344306.png" alt="password" />
+            </div>
+            <input type="password" placeholder="Password" />
+          </div>
+          <input type="submit" value="Login" class="btn solid" />
+
+          <p class="social-text">Or Sign in with Google</p>
+          <div class="social-media">
+            
+            
+            <span class="social-icon"><img src="img/google.png" alt="google" /></span>
+            
+          </div>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form action="" class="sign-up-form">
+          <h2 class="title">Sign Up</h2>
+          <div class="input-field">
+            <div class="icon-container">
+              <img src="img/man_15218201.png" alt="user" />
+            </div>
+            <input type="text" placeholder="Username" />
+          </div>
+          <div class="input-field">
+            <div class="icon-container">
+              <img src="img/email.png" alt="user" />
+            </div>
+            <input type="email" placeholder="Email" />
+          </div>
+          <div class="input-field">
+            <div class="icon-container">
+              <img src="img/lock_9344306.png" alt="password" />
+            </div>
+            <input type="password" placeholder="Password" />
+          </div>
+          <input type="submit" value="Sign Up" class="btn solid" />
+
+          <p class="social-text">Or Sign up with Google</p>
+          <div class="social-media">
+            
+            
+            <span class="social-icon"><img src="img/google.png" alt="google" /></span>
+            
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- Panels -->
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New here?</h3>
+          <p>Every expert was once a beginner — start your smart career journey today</p>
+          <button class="btn transparent" id="sign-up-btn">Sign Up</button>
+        </div>
+        <img src="./img/log.svg" class="image" alt="Log SVG" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>One of us?</h3>
+          <p>"Welcome back, innovator — your next big move starts here."</p>
+          <button class="btn transparent" id="sign-in-btn">Sign In</button>
+        </div>
+        <img src="./img/register.svg" class="image" alt="Register SVG" />
+      </div>
+    </div>
+  </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7h2q88ST02PgagT9K2zDjxoiZbkKuVqA",
+    authDomain: "gledadg.firebaseapp.com",
+    projectId: "gledadg",
+    appId: "1:495845461775:web:a74655fbe35a41d3cd787a",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Utility to handle redirect after login
+  function handleLogin(user) {
+  const name = user.displayName || prompt("Enter your name:");
+  const email = user.email;
+
+  localStorage.setItem("username", name);
+  localStorage.setItem("userEmail", email); // 👈 store email for dashboard
+  window.location.href = "dashboard.html";
+}
+
+
+  // Attach handlers
+  document.querySelectorAll(".social-icon img").forEach((el) => {
+    el.style.cursor = "pointer";
+    el.addEventListener("click", () => {
+      const alt = el.alt.toLowerCase();
+
+      if (alt.includes("google")) {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+          .then((result) => handleLogin(result.user))
+          .catch((error) => alert("Google Login failed: " + error.message));
+
+      }
+    });
+  });
+</script>
+
+<script>
+  // Handle Email/Password Sign Up
+  const signUpForm = document.querySelector(".sign-up-form");
+  signUpForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = signUpForm.querySelector('input[type="email"]').value;
+    const password = signUpForm.querySelectorAll('input[type="password"]')[0].value;
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("username", email.split('@')[0]);
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Sign Up failed: " + error.message);
+      });
+  });
+
+  // Handle Email/Password Sign In
+  const signInForm = document.querySelector(".sign-in-form");
+  signInForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = signInForm.querySelector('input[type="email"]').value;
+
+    const password = signInForm.querySelector('input[type="password"]').value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("username", email.split('@')[0]);
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Login failed: " + error.message);
+      });
+  });
+</script>
+
+
+
+<script src="./app.js"></script>
+
+
+
+
+</body>
+</html>
