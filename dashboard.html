@@ -1,94 +1,228 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Career Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Poppins',sans-serif; background:#efd3ff; color:#333; }
-    header { background:#e7a9f9; padding:20px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
-    .section { padding: 20px 30px; }
-    .section h2 { font-size:24px; margin-bottom:15px; font-weight:600; }
-    .dropdown { padding:10px; font-size:16px; border-radius:6px; border:1px solid #ccc; box-shadow:0 2px 4px rgba(0,0,0,0.05); margin:20px 30px; }
-    .card-container { display:flex; overflow-x:auto; gap:20px; padding-bottom:10px; }
-    .card { flex:0 0 300px; background:#fff; border-radius:12px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:transform .2s ease, background .2s ease; cursor:pointer; }
-    .card:hover { transform: translateY(-5px); background:#eef6ff; }
-    .card-title { font-size:18px; font-weight:600; margin-bottom:10px; }
-    .card-description { font-size:14px; color:#555; margin-bottom:10px; }
-    .card-date { font-size:13px; color:#888; margin-bottom:8px; }
-    .card-more { color:#007bff; font-weight:500; }
-    .chat-button { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; }
-    .chat-window { display: none; position: fixed; bottom: 90px; right: 20px; width: 320px; background: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); overflow: hidden; }
-    .chat-header { background: #007bff; color: white; padding: 10px; font-weight: 600; }
-    .chat-body { max-height: 300px; overflow-y: auto; padding: 10px; font-size: 14px; }
-    .chat-input { display: flex; border-top: 1px solid #ccc; }
-    .chat-input input { flex: 1; padding: 10px; border: none; outline: none; }
-    .chat-input button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; }
-   .profile-wrapper {
-  position: relative;
-  cursor: pointer;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.profile-dropdown {
-  position: absolute;
-  top: 90px;
-  right: 0;
-  background: #fff;
-  padding: 15px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-  font-size: 16px;
-  z-index: 10;
-  white-space: nowrap;
-  min-width: 200px;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #efd3ff;
+      color: #333;
+    }
 
-.profile-dropdown a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: 500;
-  font-size: 15px;
-}
+    header {
+      background: #e7a9f9;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
 
-.profile-dropdown p {
-  margin: 0;
-  font-weight: 600;
-  font-size: 16px;
-  white-space: nowrap;
-}
+    .section {
+      padding: 20px 30px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .dropdown {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin: 20px 0px;
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
 
 
+
+    .card-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding-bottom: 10px;
+    }
+
+    .card {
+      flex: 0 0 300px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform .2s ease, background .2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #eef6ff;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .card-date {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .card-more {
+      color: #007bff;
+      font-weight: 500;
+    }
+
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #007bff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .chat-window {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      font-weight: 600;
+    }
+
+    .chat-body {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .profile-wrapper {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 90px;
+      right: 0;
+      background: #fff;
+      padding: 15px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 16px;
+      z-index: 10;
+      white-space: nowrap;
+      min-width: 200px;
+    }
+
+    .profile-dropdown a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .profile-dropdown p {
+      margin: 0;
+      font-weight: 600;
+      font-size: 16px;
+      white-space: nowrap;
+    }
   </style>
-  
+
 
 </head>
+
 <body>
   <header>
-  <h1>Career Dashboard</h1>
-  <div class="profile-wrapper" onclick="toggleDropdown()">
-    <img src="img/profile.png" alt="Profile" class="profile-pic" width="80" height="80" />
-    <div class="profile-dropdown" id="profileDropdown">
-      <p class="username">👋 <span id="dropdownName">User</span></p>
-      <a href="https://www.linkedin.com/in/s-adhithyaa-kumar-830518279" target="_blank">📩 Contact Owner</a>
-      <a href="#" onclick="logout()">🚪 Logout</a>
+    <h1>Career Dashboard</h1>
+    <div class="profile-wrapper" onclick="toggleDropdown()">
+      <img src="img/profile.png" alt="Profile" class="profile-pic" width="80" height="80" />
+      <div class="profile-dropdown" id="profileDropdown">
+        <p class="username">👋 <span id="dropdownName">User</span></p>
+        <a href="https://www.linkedin.com/in/s-adhithyaa-kumar-830518279" target="_blank">📩 Contact Owner</a>
+        <a href="#" onclick="logout()">🚪 Logout</a>
+      </div>
     </div>
-  </div>
-</header>
-
-  <select id="goalDropdown" class="dropdown" onchange="updateContent()">
-    <option value="software">Software Developer / Engineer</option>
-    <option value="ai">AI Engineer</option>
-    <option value="mechanical">Mechanical Engineer</option>
-    <option value="cloud">Cloud Engineer</option>
-  </select>
-
+  </header>
+<div class="section">
+<h2>Select Your goal</h2>
+<select id="goalDropdown" class="dropdown" onchange="updateContent()">
+  <option value="software">Software Developer / Engineer</option>
+  <option value="ai">AI Engineer</option>
+  <option value="mechanical">Mechanical Engineer</option>
+  <option value="cloud">Cloud Engineer</option>
+</select>
+</div>
   <div class="section">
-    <h2>Top 30 Events For You</h2>
+    <h2>Top Events For You</h2>
     <div class="card-container" id="eventsContainer"></div>
   </div>
 
@@ -97,7 +231,7 @@
     <div class="card-container" id="coursesContainer"></div>
   </div>
 
-    <div class="chat-button" onclick="toggleChat()">💬</div>
+  <div class="chat-button" onclick="toggleChat()">💬</div>
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">Ask AI Assistant</div>
     <div class="chat-body" id="chatBody"></div>
@@ -118,7 +252,7 @@
         { title: "Ai4 2025", date: "Aug 11‑13, 2025", description: "Large‑scale AI industry event in Vegas" },
         { title: "Deep Learning Indaba 2025", date: "Jul 2025", description: "Focused ML conference in Africa (Kigali)" },
         { title: "Nvidia GTC 2025", date: "Mar 17‑21, 2025", description: "GPU & AI developer conference (San Jose/online)" },
-        ...Array.from({length:22},(_,i)=>({ title:`AI Tech Event ${i+9}`, date:"TBA", description:`AI industry event number ${i+9}` }))
+        ...Array.from({ length: 22 }, (_, i) => ({ title: `AI Tech Event ${i + 9}`, date: "TBA", description: `AI industry event number ${i + 9}` }))
       ],
       cloud: [
         { title: "CloudFest 2025", date: "Mar 17‑20, 2025", description: "Leading cloud event in Santa Clara" },
@@ -128,7 +262,7 @@
         { title: "KubeCon + CloudNativeCon 2025", date: "Apr 1‑4, 2025", description: "Kubernetes and cloud-native tech (London)" },
         { title: "Cyber Security & Cloud Expo Europe", date: "Sep 24‑25, 2025", description: "Security and cloud topic in Amsterdam" },
         { title: "AI Infra Summit", date: "Sep 23‑26, 2025", description: "AI infrastructure and deployment event" },
-        ...Array.from({length:23},(_,i)=>({ title:`Cloud Expo ${i+8}`, date:"TBA", description:`Cloud computing event ${i+8}` }))
+        ...Array.from({ length: 23 }, (_, i) => ({ title: `Cloud Expo ${i + 8}`, date: "TBA", description: `Cloud computing event ${i + 8}` }))
       ],
       software: [
         { title: "JSConf India 2025", date: "TBA", description: "Focused JavaScript community conference" },
@@ -137,67 +271,56 @@
         { title: "Momentum AI San Jose", date: "Jul 15‑16, 2025", description: "Business‑focused AI conference" },
         { title: "DIS Conference Madeira", date: "Jul 5‑9, 2025", description: "Design & interactive systems with AI" },
         { title: "CompTIA ChannelCon", date: "Jul 29‑31, 2025", description: "IT and development industry expo" },
-        ...Array.from({length:24},(_,i)=>({ title:`Dev Event ${i+7}`, date:"TBA", description:`Software developer event ${i+7}` }))
+        ...Array.from({ length: 24 }, (_, i) => ({ title: `Dev Event ${i + 7}`, date: "TBA", description: `Software developer event ${i + 7}` }))
       ],
       mechanical: [
         { title: "AutoExpo 2025", date: "TBA", description: "Automotive & mechanical showcase in India" },
         { title: "MechCon 2025", date: "TBA", description: "Mechanical & robotics conference" },
         { title: "AI at CES 2025", date: "Jan 7‑10, 2025", description: "Consumer electronics with AI angle" },
         { title: "Quantom Auto Day India", date: "Jul 30, 2025", description: "Automotive industry & cloud‑AI in Delhi" },
-        ...Array.from({length:26},(_,i)=>({ title:`Mech Event ${i+5}`, date:"TBA", description:`Mechanical engineering event ${i+5}` }))
+        ...Array.from({ length: 26 }, (_, i) => ({ title: `Mech Event ${i + 5}`, date: "TBA", description: `Mechanical engineering event ${i + 5}` }))
       ]
     };
 
     const coursesData = {
-      ai: Array.from({length:30},(_,i)=>({ title:`Intro to AI Course ${i+1}`, description:`Free AI/ML course ${i+1} on Coursera/YouTube/fast.ai` })),
-      cloud: Array.from({length:30},(_,i)=>({ title:`Cloud Course ${i+1}`, description:`Cloud fundamentals ${i+1} from AWS/GCP/Azure` })),
-      software: Array.from({length:30},(_,i)=>({ title:`Software Dev Course ${i+1}`, description:`Free course on JavaScript, Python, DSA ${i+1}` })),
-      mechanical: Array.from({length:30},(_,i)=>({ title:`Mechanical Engg Course ${i+1}`, description:`Free mechanical/auto engineering course ${i+1}` }))
+      ai: Array.from({ length: 30 }, (_, i) => ({ title: `Intro to AI Course ${i + 1}`, description: `Free AI/ML course ${i + 1} on Coursera/YouTube/fast.ai` })),
+      cloud: Array.from({ length: 30 }, (_, i) => ({ title: `Cloud Course ${i + 1}`, description: `Cloud fundamentals ${i + 1} from AWS/GCP/Azure` })),
+      software: Array.from({ length: 30 }, (_, i) => ({ title: `Software Dev Course ${i + 1}`, description: `Free course on JavaScript, Python, DSA ${i + 1}` })),
+      mechanical: Array.from({ length: 30 }, (_, i) => ({ title: `Mechanical Engg Course ${i + 1}`, description: `Free mechanical/auto engineering course ${i + 1}` }))
     };
 
     function createCard(item) {
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <div class="card-title">${item.title}</div>
-        <div class="card-date">${item.date || ""}</div>
-        <div class="card-description">${item.description}</div>
-        <div class="card-more">Click for more info</div>
-        <div class="interest-buttons">
-          <button class="btn-interest" onclick="expressInterest(event, '${item.title}')">Interested</button>
-          <button class="btn-not-interest" onclick="event.stopPropagation()">Not Interested</button>
-        </div>
-      `;
-      div.onclick = () => alert(`${item.title}\n\n${item.description}`);
-      return div;
-    }
+  const div = document.createElement("div");
+  div.className = "card";
+  div.innerHTML = `
+    <div class="card-title">${item.title}</div>
+    <div class="card-date">${item.date || ""}</div>
+    <div class="card-description">${item.description}</div>
+    <div class="card-more">Click for more info</div>
+    <div class="interest-buttons">
+      <button class="btn-interest" onclick="expressInterest(event, '${item.title}')">Interested</button>
+      <button class="btn-not-interest" onclick="removeCard(event)">Not Interested</button>
+    </div>
+  `;
+  div.onclick = () => alert(`${item.title}\n\n${item.description}`);
+  return div;
+}
 
-    function expressInterest(event, title) {
-  event.stopPropagation();
-
-  const description = "You showed interest in " + title + ". We’ll reach out with updates and next steps.";
-
-  sendReminderEmail(title, description);
+// ❌ Removes card on "Not Interested"
+function removeCard(event) {
+  event.stopPropagation(); // prevent triggering the parent div onclick
+  const card = event.target.closest(".card");
+  if (card) card.remove();
 }
 
 
-  fetch("https://api.sendgrid.com/v3/mail/send", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer YOUR_SENDGRID_API_KEY"
-    },
-    body: JSON.stringify(emailPayload)
-  })
-    .then(res => {
-      if (res.ok) {
-        alert("✅ Email sent to " + userEmail + "! You'll receive updates.");
-      } else {
-        throw new Error("Email failed");
-      }
-    })
-    .catch(() => alert("❌ Failed to send email."));
+    function expressInterest(event, title) {
+      event.stopPropagation();
 
+      const description = "You showed interest in " + title + ". We’ll reach out with updates and next steps.";
+
+      sendReminderEmail(title, description);
+    }
     function updateContent() {
       const goal = document.getElementById("goalDropdown").value;
       const ev = eventsData[goal] || [], cr = coursesData[goal] || [];
@@ -237,24 +360,24 @@
 
 
     function toggleDropdown() {
-  const dropdown = document.getElementById("profileDropdown");
-  dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
+      const dropdown = document.getElementById("profileDropdown");
+      dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
 
-  const username = localStorage.getItem("username") || "User";
-  document.getElementById("dropdownName").textContent = username;
-}
+      const username = localStorage.getItem("username") || "User";
+      document.getElementById("dropdownName").textContent = username;
+    }
 
-function logout() {
-  localStorage.clear(); // clear saved user data
-  window.location.href = "index.html"; // redirect to sign-in
-}
+    function logout() {
+      localStorage.clear(); // clear saved user data
+      window.location.href = "index.html"; // redirect to sign-in
+    }
 
-// Optional: close dropdown when clicking outside
-window.addEventListener("click", function (e) {
-  if (!e.target.closest(".profile-wrapper")) {
-    document.getElementById("profileDropdown").style.display = "none";
-  }
-});
+    // Optional: close dropdown when clicking outside
+    window.addEventListener("click", function (e) {
+      if (!e.target.closest(".profile-wrapper")) {
+        document.getElementById("profileDropdown").style.display = "none";
+      }
+    });
 
 
     window.onload = () => {
@@ -265,30 +388,31 @@ window.addEventListener("click", function (e) {
 
   </script>
 
-<!-- ✅ EmailJS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  emailjs.init("sxAyv0kVFmcTdG_MN"); // Your actual user ID
+  <!-- ✅ EmailJS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init("sxAyv0kVFmcTdG_MN"); // Your actual user ID
 
-  function sendReminderEmail(title, description) {
-    const userName = localStorage.getItem("username") || "User";
-    const userEmail = localStorage.getItem("userEmail") || "example@example.com";
+    function sendReminderEmail(title, description) {
+      const userName = localStorage.getItem("username") || "User";
+      const userEmail = localStorage.getItem("userEmail") || "example@example.com";
 
-    emailjs.send("service_6hyy6ea", "template_5vy4mum", {
-      user_name: userName,
-      user_email: userEmail,
-      item_title: title,
-      item_description: description
-    }).then(() => {
-      alert("✅ Email sent successfully to " + userEmail);
-    }).catch((err) => {
-      alert("❌ Failed to send email.\n" + JSON.stringify(err));
+      emailjs.send("service_6hyy6ea", "template_5vy4mum", {
+        user_name: userName,
+        user_email: userEmail,
+        item_title: title,
+        item_description: description
+      }).then(() => {
+        alert("✅ Email sent successfully to " + userEmail);
+      }).catch((err) => {
+        alert("❌ Failed to send email.\n" + JSON.stringify(err));
 
-    });
-  }
-</script>
+      });
+    }
+  </script>
 
 
 
 </body>
+
 </html>
